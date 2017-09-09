@@ -3,12 +3,12 @@ package com.magicbydesign.codingfun;
 import java.util.function.Function;
 
 public class Fibonacci {
-    
+
     static final boolean DEBUG = false;
-    
+
     // TODO: properly handle negative numbers
     // now if n < 0 we just return n
-    
+
     public static int fibRecursive(int n) {
         if (n <= 1) {
             return n;
@@ -28,7 +28,7 @@ public class Fibonacci {
         }
         return c;
     }
-    
+
     public static void testFibFunc(String fname, Function<Integer, Integer> fibFunc) {
         test(fibFunc.apply(-1) == -1, fname + ": -1 -> -1");
         test(fibFunc.apply(0) == 0, fname + ": 0 -> 0");
@@ -51,5 +51,4 @@ public class Fibonacci {
         testFibFunc("recursive", Fibonacci::fibRecursive);
         testFibFunc("optimized", Fibonacci::fibOptimized);
     }
-
 }
