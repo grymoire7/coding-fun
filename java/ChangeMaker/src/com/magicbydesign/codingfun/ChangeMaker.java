@@ -13,17 +13,16 @@ public class ChangeMaker {
     }
     
     /**
-     * Takes a US currency amount and returns a hash of change representing
-     * that amount in the fewest possible US coins (quarters, dimes, nickels,
-     * pennies).
+     * Takes a US currency amount in cents and returns a hash of change
+     * representing that amount in the fewest possible US coins (quarters,
+     * dimes, nickels, pennies).
      * 
      * @param amount
      * @return hash of change
      */
-    public static HashMap<Coins, Integer> makeChange(double amount) {
-    	// first make sure this is a currency amount
-        int cents = (int)( (amount + 0.005)*100 );
-        if (amount != cents/100.0 || amount < 0) {
+    public static HashMap<Coins, Integer> makeChange(int cents) {
+    	// first make sure this is a positive currency amount
+        if (cents < 0) {
             return null;
         }
 
@@ -43,11 +42,11 @@ public class ChangeMaker {
     }
 
     public static void main(String[] args) {
-        HashMap<Coins, Integer> register = ChangeMaker.makeChange(1.053);
-        ChangeMaker.test(null == register, "1.053 invalid input");
+        HashMap<Coins, Integer> register = ChangeMaker.makeChange(-1);
+        ChangeMaker.test(null == register, "-1 invalid input");
         
-        register = ChangeMaker.makeChange(-1.50);
-        ChangeMaker.test(null == register, "-1.50 invalid input");
+        register = ChangeMaker.makeChange(-150);
+        ChangeMaker.test(null == register, "-$1.50 invalid input");
 
         register = ChangeMaker.makeChange(0);
         ChangeMaker.test(null != register, "0 valid input");
@@ -57,22 +56,22 @@ public class ChangeMaker {
             }
         }
 
-        register = ChangeMaker.makeChange(1.05);
-        ChangeMaker.test(null != register, "1.05 valid input");
+        register = ChangeMaker.makeChange(105);
+        ChangeMaker.test(null != register, "105 valid input");
         if (null != register) {
-            ChangeMaker.test(register.get(Coins.QUARTER) == 4, "1.05 quarters " + register.get(Coins.QUARTER));
-            ChangeMaker.test(register.get(Coins.DIME)    == 0, "1.05 dimes "    + register.get(Coins.DIME));
-            ChangeMaker.test(register.get(Coins.NICKEL)  == 1, "1.05 nickels "  + register.get(Coins.NICKEL));
-            ChangeMaker.test(register.get(Coins.PENNY)   == 0, "1.05 cents "    + register.get(Coins.PENNY));
+            ChangeMaker.test(register.get(Coins.QUARTER) == 4, "$1.05 quarters " + register.get(Coins.QUARTER));
+            ChangeMaker.test(register.get(Coins.DIME)    == 0, "$1.05 dimes "    + register.get(Coins.DIME));
+            ChangeMaker.test(register.get(Coins.NICKEL)  == 1, "$1.05 nickels "  + register.get(Coins.NICKEL));
+            ChangeMaker.test(register.get(Coins.PENNY)   == 0, "$1.05 cents "    + register.get(Coins.PENNY));
         }
 
-        register = ChangeMaker.makeChange(1.16);
-        ChangeMaker.test(null != register, "1.16 valid input");
+        register = ChangeMaker.makeChange(116);
+        ChangeMaker.test(null != register, "116 valid input");
         if (null != register) {
-            ChangeMaker.test(register.get(Coins.QUARTER) == 4, "1.16 quarters " + register.get(Coins.QUARTER));
-            ChangeMaker.test(register.get(Coins.DIME)    == 1, "1.16 dimes "    + register.get(Coins.DIME));
-            ChangeMaker.test(register.get(Coins.NICKEL)  == 1, "1.16 nickels "  + register.get(Coins.NICKEL));
-            ChangeMaker.test(register.get(Coins.PENNY)   == 1, "1.16 cents "    + register.get(Coins.PENNY));
+            ChangeMaker.test(register.get(Coins.QUARTER) == 4, "$1.16 quarters " + register.get(Coins.QUARTER));
+            ChangeMaker.test(register.get(Coins.DIME)    == 1, "$1.16 dimes "    + register.get(Coins.DIME));
+            ChangeMaker.test(register.get(Coins.NICKEL)  == 1, "$1.16 nickels "  + register.get(Coins.NICKEL));
+            ChangeMaker.test(register.get(Coins.PENNY)   == 1, "$1.16 cents "    + register.get(Coins.PENNY));
         }
     }
 }
