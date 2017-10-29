@@ -3,15 +3,15 @@ package com.magicbydesign.codingfun;
 import java.util.HashMap;
 
 public class ChangeMaker {
-    
+
     public enum Coins {
         QUARTER(25), DIME(10), NICKEL(5), PENNY(1);
-        
+
         private int value;
         Coins(int value) { this.value = value; }
         public int value() { return value; }
     }
-    
+
     /**
      * Takes a US currency amount in cents and returns a hash of change
      * representing that amount in the fewest possible US coins (quarters,
@@ -21,7 +21,7 @@ public class ChangeMaker {
      * @return hash of change
      */
     public static HashMap<Coins, Integer> makeChange(int cents) {
-    	// first make sure this is a positive currency amount
+        // first make sure this is a positive currency amount
         if (cents < 0) {
             return null;
         }
@@ -36,7 +36,7 @@ public class ChangeMaker {
 
         return register;
     }
-    
+
     public static void test(boolean cond, String name) {
         System.out.println(name + (cond ? ": pass" : ": fail"));
     }
@@ -44,7 +44,7 @@ public class ChangeMaker {
     public static void main(String[] args) {
         HashMap<Coins, Integer> register = ChangeMaker.makeChange(-1);
         ChangeMaker.test(null == register, "-1 invalid input");
-        
+
         register = ChangeMaker.makeChange(-150);
         ChangeMaker.test(null == register, "-$1.50 invalid input");
 
