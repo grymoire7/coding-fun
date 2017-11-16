@@ -117,7 +117,7 @@ class War
     # cards.  In this case the winner will be selected
     # randomly from the players with empty hands.
     if @pot.empty?
-      set = @hands.select { |_, hand| hand.size == 0 }
+      set = @hands.select { |_, hand| hand.size.zero? }
       winner = set.keys.sample
       return [winner, ROUND_STATUS_NOPOT]
     end
