@@ -66,6 +66,9 @@ end
 class War
   attr_accessor :players, :hands, :pot
   DEBUG = false
+  ROUND_STATUS_OK  = 0
+  ROUND_STATUS_TIE = 1
+  ROUND_STATUS_NOPOT = 3
 
   def debug(msg, obj = nil)
     msg = "== Debug: #{msg}" unless msg.class != String
@@ -108,11 +111,26 @@ class War
   end
 
   def find_round_winner
+    # return [nil, ROUND_STATUS_NOPOT] if @pot.empty?
+    # If the pot is empty that means there was a tie in the
+    # previous round and two or more hands have run out of
+    # cards.  In this case the winner will be selected
+    # randomly from the players with empty hands.
+    if @pot.empty?
+      set = @hands.select { |_, hand| hand.size == 0 }
+      winner = set.keys.sample
+      return [winner, ROUND_STATUS_NOPOT]
+    end
+
+    # winner = winners[Random.rand(winners.size).round].owner
     # winners = @pot.group_by { |card| card.value }.max.last
     winners = @pot.group_by(&:value).max.last
-    winner = nil
-    winner = winners.first.owner if winners.size == 1
-    winner
+
+    if winners.size == 1
+      return [winners.first.owner, ROUND_STATUS_OK]
+    else
+      return [nil, ROUND_STATUS_TIE]
+    end
   end
 
   def award_pot_to(player)
@@ -143,8 +161,8 @@ class War
   def play_round
     awarded = 0
     play_into_pot
-    winner = find_round_winner
-    if winner.nil?
+    winner, err = find_round_winner
+    if err == ROUND_STATUS_TIE
       # break ties by recursive call after stashing the pot
       stash = @pot.dup
       @pot.clear
@@ -159,7 +177,7 @@ class War
       hand.shuffle! # shuffle to prevent cylces
       debug ">>> #{owner} has #{hand.size} cards"
     end
-    remove_empty_hands
+    remove_empty_hands unless err == ROUND_STATUS_NOPOT
     [winner, awarded]
   end
 

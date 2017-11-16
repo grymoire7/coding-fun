@@ -72,7 +72,7 @@ RSpec.describe War do
         war.hands[playerA] << Card.new(playerA, 7)
         war.hands[playerB] << Card.new(playerB, 6)
         war.play_into_pot
-        expect(war.find_round_winner).to eq(playerA)
+        expect(war.find_round_winner.first).to eq(playerA)
       end
     end
     context 'when the second player has the high card' do
@@ -80,7 +80,7 @@ RSpec.describe War do
         war.hands[playerA] << Card.new(playerA, 7)
         war.hands[playerB] << Card.new(playerB, 8)
         war.play_into_pot
-        expect(war.find_round_winner).to eq(playerB)
+        expect(war.find_round_winner.first).to eq(playerB)
       end
     end
     context 'when there is a tie' do
@@ -106,6 +106,17 @@ RSpec.describe War do
         war.hands[playerB] << Card.new(playerB, 6)
         winner, awarded = war.play_round
         expect(winner).to eq(playerB)
+        expect(awarded).to eq(6)
+      end
+      it 'handles a tie game' do
+        war.hands[playerA] << Card.new(playerA, 3)
+        war.hands[playerB] << Card.new(playerB, 3)
+        war.hands[playerA] << Card.new(playerA, 4)
+        war.hands[playerB] << Card.new(playerB, 4)
+        war.hands[playerA] << Card.new(playerA, 5)
+        war.hands[playerB] << Card.new(playerB, 5)
+        winner, awarded = war.play_round
+        expect(winner).to be_truthy
         expect(awarded).to eq(6)
       end
     end
