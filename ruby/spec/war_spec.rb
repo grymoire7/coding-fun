@@ -119,6 +119,16 @@ RSpec.describe War do
         expect(winner).to be_truthy
         expect(awarded).to eq(6)
       end
+      it 'prefers a player with cards' do
+        war.hands[playerA] << Card.new(playerA, 3)
+        war.hands[playerB] << Card.new(playerB, 3)
+        war.hands[playerA] << Card.new(playerA, 4)
+        war.hands[playerB] << Card.new(playerB, 4)
+        war.hands[playerA] << Card.new(playerA, 5)
+        winner, awarded = war.play_round
+        expect(winner).to eq(playerA)
+        expect(awarded).to eq(5)
+      end
     end
   end
 
