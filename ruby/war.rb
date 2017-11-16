@@ -108,20 +108,26 @@ class War
   end
 
   def find_round_winner
-    # TODO: handle ties by playing more hands
-    # TODO: right now it chooses randomly
     # winners = @pot.group_by { |card| card.value }.max.last
     winners = @pot.group_by(&:value).max.last
-    winner = winners[Random.rand(winners.size).round].owner
+    if winners.size == 1
+      winner = winners.first.owner
+    else
+      # puts "Tie!"
+      # winner = winners[Random.rand(winners.size).round].owner
+      winner = nil
+    end
     winner
   end
 
   def award_pot_to(player)
+    awarded = @pot.size
     @pot.each do |card|
       card.owner = player
     end
     @hands[player] += @pot
     @pot.clear
+    awarded
   end
 
   def remove_empty_hands
@@ -129,15 +135,25 @@ class War
   end
 
   def play_round
+    awarded = 0
     play_into_pot
     winner = find_round_winner
+    if winner.nil?
+      tmp_pot = @pot.dup
+      @pot.clear
+      next_winner, next_awarded = play_round
+      @pot.push(*tmp_pot)
+      awarded += next_awarded
+      winner = next_winner
+    end
     debug "round winner = #{winner}"
-    award_pot_to winner
+    awarded += award_pot_to winner
     @hands.each do |owner, hand|
       hand.shuffle! # shuffle to prevent cylces
       debug ">>> #{owner} has #{hand.size} cards"
     end
     remove_empty_hands
+    [winner, awarded]
   end
 
   def play
