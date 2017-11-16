@@ -53,6 +53,7 @@ class Parser
   def parse_string
     ret = nil
     return nil if @input !~ /^\d+:/
+
     matchdata = /^(\d+):/.match(@input)
     integer = matchdata[1].to_i
     return nil if integer <= 0
@@ -104,29 +105,18 @@ class Parser
 
   def parse
     parsed = []
-    return parsed if @input.nil? || @input.length.zero?
+    return parsed if @input.empty?
     debug "Parse: \"#{@input}\""
-    loop do
-      break if @input.length.zero?
+    until @input.empty?
       case @input
       when /^i\d+e/                  # integer
-        integer = parse_int
-        debug "integer: #{integer}"
-        parsed << integer
+        parsed << parse_int
       when /^(\d+):.{1,}/            # string
-        string = parse_string
-        debug "string: #{string}"
-        parsed << string
+        parsed << parse_string
       when /^a/                      # array
-        ary = parse_array
-        debug "array: #{ary}, parsed: #{parsed}"
-        parsed << ary
-        debug "array: #{ary}, parsed: #{parsed}"
+        parsed << parse_array
       when /^d/                      # dictionary
-        dict = parse_dict
-        debug "dict: #{dict}, parsed: #{parsed}"
-        parsed << dict
-        debug "dict: #{dict}, parsed: #{parsed}"
+        parsed << parse_dict
       else
         debug "unrecognized token at: #{@input}"
         break

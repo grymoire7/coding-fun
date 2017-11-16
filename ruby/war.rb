@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# rubocop:disable Style/SingleLineMethods, Style/CommentedKeyword
 
 class Pot < Array; end
 class Cards < Array; end
@@ -12,6 +13,7 @@ class Card
   end
 
   def to_s; "#{owner}, #{value}"; end
+
   def to_str; to_s; end
 end
 
@@ -38,10 +40,9 @@ class StatsCollector
 
   def collect
     @results = {}
-    total = @data.size
     @players.each do |player|
       set = @data.select { |datum| datum.key? player }
-      percent_win = set.size.fdiv(total) * 100
+      percent_win = set.size.fdiv(data.size) * 100
       rounds = set.inject(0) { |sum, datum| sum + datum[player] }
       avg_rounds = rounds.fdiv(set.size)
       @results[player] = {

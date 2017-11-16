@@ -1,3 +1,4 @@
+# rubocop:disable Style/Semicolon, ParallelAssignment
 
 # Fionacci calculates elemens of the Fibonacci sequence.
 #

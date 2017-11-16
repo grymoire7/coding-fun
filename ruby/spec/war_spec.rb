@@ -37,9 +37,10 @@ RSpec.describe War do
     it 'raises an error with less than two players' do
       expect { War.new }.to raise_error(RuntimeError, /two players/)
     end
-    it 'creates an array of players with names and cards' do
+    it 'has two players' do
       expect(war.players.size).to eq(2)
     end
+    it 'creates an array of players with names and cards'
   end
 
   describe '#play_into_pot' do
