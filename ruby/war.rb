@@ -110,13 +110,8 @@ class War
   def find_round_winner
     # winners = @pot.group_by { |card| card.value }.max.last
     winners = @pot.group_by(&:value).max.last
-    if winners.size == 1
-      winner = winners.first.owner
-    else
-      # puts "Tie!"
-      # winner = winners[Random.rand(winners.size).round].owner
-      winner = nil
-    end
+    winner = nil
+    winner = winners.first.owner if winners.size == 1
     winner
   end
 
@@ -134,17 +129,29 @@ class War
     @hands.delete_if { |_, hand| hand.empty? }
   end
 
+  # Unused. Considered breaking this out but uncomfortable with the
+  # increased cyclomatic complexity of play_round given the indirect
+  # recursion that would result.
+  def break_tie
+    stash = @pot.dup
+    @pot.clear
+    round_winner, round_awarded = play_round
+    @pot.push(*stash)
+    [round_winner, round_awarded]
+  end
+
   def play_round
     awarded = 0
     play_into_pot
     winner = find_round_winner
     if winner.nil?
-      tmp_pot = @pot.dup
+      # break ties by recursive call after stashing the pot
+      stash = @pot.dup
       @pot.clear
-      next_winner, next_awarded = play_round
-      @pot.push(*tmp_pot)
-      awarded += next_awarded
-      winner = next_winner
+      round_winner, round_awarded = play_round
+      @pot.push(*stash)
+      awarded += round_awarded
+      winner = round_winner
     end
     debug "round winner = #{winner}"
     awarded += award_pot_to winner
