@@ -111,7 +111,6 @@ class War
   end
 
   def find_round_winner
-    # return [nil, ROUND_STATUS_NOPOT] if @pot.empty?
     # If the pot is empty that means there was a tie in the
     # previous round and two or more hands have run out of
     # cards.  In this case the winner will be selected
@@ -122,8 +121,6 @@ class War
       return [winner, ROUND_STATUS_NOPOT]
     end
 
-    # winner = winners[Random.rand(winners.size).round].owner
-    # winners = @pot.group_by { |card| card.value }.max.last
     winners = @pot.group_by(&:value).max.last
 
     if winners.size == 1
