@@ -1,6 +1,14 @@
 #!/usr/bin/env ruby
 
 class TwelveDays
+  def recite
+    (1..12).map {|i|
+      verse(i)
+    }.join("\n")
+  end
+
+  private
+
   ORDINALS = %w(zeroth first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth)
   LINES = [
         "Twelve drummers drumming",
@@ -19,12 +27,6 @@ class TwelveDays
   def verse(i)
     "On the %s day of christmas my true love sent to me\n" % ORDINALS[i] +
       LINES.last(i).join("\n") + "\n"
-  end
-
-  def recite
-    (1..12).map {|i|
-      verse(i)
-    }.join("\n")
   end
 end
 
