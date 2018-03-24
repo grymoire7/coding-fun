@@ -1,35 +1,37 @@
 #!/usr/bin/env ruby
 
 class TwelveDays
+  ORDINALS = %w(zeroth first second third fourth sixth seventh eighth ninth tenth eleventh twelfth)
+
   def verse(i)
     case i
     when 1
-      "On the first day of christmas my true love sent to me\n" +
+      "On the %s day of christmas my true love sent to me\n" % "first" +
       "A partridge in a pear tree\n"
     when 2
-      "On the second day of christmas my true love sent to me\n" +
+      "On the %s day of christmas my true love sent to me\n" % "second" +
       "Two turtle doves, and\n" +
       "A partridge in a pear tree\n"
     when 3
-      "On the third day of christmas my true love sent to me\n" +
+      "On the %s day of christmas my true love sent to me\n" % "third" +
       "Three french hens\n" +
       "Two turtle doves, and\n" +
       "A partridge in a pear tree\n"
     when 4
-      "On the fourth day of christmas my true love sent to me\n" +
+      "On the %s day of christmas my true love sent to me\n" % "fourth" +
       "Four colly birds\n" +
       "Three french hens\n" +
       "Two turtle doves, and\n" +
       "A partridge in a pear tree\n"
     when 5
-      "On the fifth day of christmas my true love sent to me\n" +
+      "On the %s day of christmas my true love sent to me\n" % "fifth" +
       "Five gold rings\n" +
       "Four colly birds\n" +
       "Three french hens\n" +
       "Two turtle doves, and\n" +
       "A partridge in a pear tree\n"
     when 6
-      "On the sixth day of christmas my true love sent to me\n" +
+      "On the %s day of christmas my true love sent to me\n" % "sixth" +
       "Six geese a-laying\n" +
       "Five gold rings\n" +
       "Four colly birds\n" +
@@ -37,7 +39,7 @@ class TwelveDays
       "Two turtle doves, and\n" +
       "A partridge in a pear tree\n"
     when 7
-      "On the seventh day of christmas my true love sent to me\n" +
+      "On the %s day of christmas my true love sent to me\n" % "seventh" +
       "Seven swans a-swimming\n" +
       "Six geese a-laying\n" +
       "Five gold rings\n" +
@@ -46,7 +48,7 @@ class TwelveDays
       "Two turtle doves, and\n" +
       "A partridge in a pear tree\n"
     when 8
-      "On the eighth day of christmas my true love sent to me\n" +
+      "On the %s day of christmas my true love sent to me\n" % "eighth" +
       "Eight maids a-milking\n" +
       "Seven swans a-swimming\n" +
       "Six geese a-laying\n" +
@@ -56,7 +58,7 @@ class TwelveDays
       "Two turtle doves, and\n" +
       "A partridge in a pear tree\n"
     when 9
-      "On the ninth day of christmas my true love sent to me\n" +
+      "On the %s day of christmas my true love sent to me\n" % "ninth" +
       "Nine ladies dancing\n" +
       "Eight maids a-milking\n" +
       "Seven swans a-swimming\n" +
@@ -67,7 +69,7 @@ class TwelveDays
       "Two turtle doves, and\n" +
       "A partridge in a pear tree\n"
     when 10
-      "On the tenth day of christmas my true love sent to me\n" +
+      "On the %s day of christmas my true love sent to me\n" % "tenth" +
       "Ten lords a-leaping\n" +
       "Nine ladies dancing\n" +
       "Eight maids a-milking\n" +
@@ -79,7 +81,7 @@ class TwelveDays
       "Two turtle doves, and\n" +
       "A partridge in a pear tree\n"
     when 11
-      "On the eleventh day of christmas my true love sent to me\n" +
+      "On the %s day of christmas my true love sent to me\n" % "eleventh" +
       "Eleven pipers piping\n" +
       "Ten lords a-leaping\n" +
       "Nine ladies dancing\n" +
@@ -92,7 +94,7 @@ class TwelveDays
       "Two turtle doves, and\n" +
       "A partridge in a pear tree\n"
     when 12
-      "On the twelfth day of christmas my true love sent to me\n" +
+      "On the %s day of christmas my true love sent to me\n" % "twelfth" +
       "Twelve drummers drumming\n" +
       "Eleven pipers piping\n" +
       "Ten lords a-leaping\n" +
