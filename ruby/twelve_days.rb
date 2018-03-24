@@ -12,7 +12,7 @@ class TwelveDays
   ORDINALS = %w[zeroth first second third fourth fifth sixth
                 seventh eighth ninth tenth eleventh twelfth].freeze
 
-  LINES = [
+  GIFTS = [
     'Twelve drummers drumming',
     'Eleven pipers piping',
     'Ten lords a-leaping',
@@ -29,7 +29,7 @@ class TwelveDays
 
   def verse(i)
     "On the %s day of christmas my true love sent to me\n" % ORDINALS[i] +
-      LINES.last(i).join("\n") + "\n"
+      GIFTS.last(i).join("\n") + "\n"
   end
 end
 
