@@ -2,7 +2,7 @@
 
 class TwelveDays
   def recite
-    (1..12).map do |i|
+    (1..GIFTS.length).map do |i|
       verse(i)
     end.join("\n")
   end
