@@ -10,7 +10,7 @@ end
 
 RSpec.describe Player do
   let(:name) {'player_name'}
-  let(:chip_count) { rand(1..10) }
+  let(:chip_count) { rand(3..10) }
   let(:player) { Player.new(name, chip_count) }
   let(:other_player) { Player.new('anything', 0) }
 
