@@ -27,7 +27,7 @@ class Player
   end
 
   def roll
-    [Die.roll, Die.roll, Die.roll]
+    [Die.roll, Die.roll, Die.roll].first([chip_count, 3].min)
   end
 end
 

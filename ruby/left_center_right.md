@@ -1,7 +1,7 @@
 # Left Center Right dice game
 
 See [code sample here](left_center_right.rb) with [specs](spec/left_center_right_spec.rb).
-Note that the sample code does not implement all rules and/or variations.
+Note that the sample code does not implement any of the variations.
 
 ## Game Description
 Each player receives at least 3 chips. Players take turns to roll three
