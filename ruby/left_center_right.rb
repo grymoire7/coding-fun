@@ -3,7 +3,7 @@
 
 class Die
   def self.roll
-    [:left, :center, :right, :dot, :dot, :dot].sample
+    %i[left center right dot dot dot].sample
   end
 end
 
@@ -17,18 +17,17 @@ class Player
   end
 
   def has_chips?
-    chip_count > 0
+    chip_count.positive?
   end
 
   def transfer_chip_to(player)
-    if has_chips?
-      self.chip_count -= 1
-      player.chip_count += 1
-    end
+    return unless has_chips?
+    self.chip_count -= 1
+    player.chip_count += 1
   end
 
   def roll
-    [ Die.roll, Die.roll, Die.roll ]
+    [Die.roll, Die.roll, Die.roll]
   end
 end
 
@@ -38,21 +37,19 @@ class LeftCenterRight
 
   # player names are specified in order of play around the table clock-wise
   def initialize(starting_chips, *player_names)
-    raise 'Left-Center-Right needs at least two players!' if player_names.size < 2
-    raise 'Left-Center-Right needs at least one chip!' if starting_chips < 1
+    raise 'LCR needs at least three players!' if player_names.size < 3
+    raise 'LCR needs at least one chip!' if starting_chips < 1
     @players = player_names.map do |name|
       Player.new(name, starting_chips)
     end
-    @pot = Player.new('pot', 0)       # a Player for ease of chip transfer
+    @pot = Player.new('pot', 0) # a Player for ease of chip transfer
     @starting_chips = starting_chips
     @play_counter = 0
   end
 
   def play
     reset
-    until game_over? do
-      play_turn
-    end
+    play_turn until game_over?
     puts "#{winner} wins the game in #{@play_counter} plays!"
   end
 
@@ -69,12 +66,12 @@ class LeftCenterRight
     player.roll.each do |roll|
       print " #{roll}"
       case roll
-        when :left
-          player.transfer_chip_to(players.last)
-        when :center
-          player.transfer_chip_to(pot)
-        when :right
-          player.transfer_chip_to(players[1])
+      when :left
+        player.transfer_chip_to(players.last)
+      when :center
+        player.transfer_chip_to(pot)
+      when :right
+        player.transfer_chip_to(players[1])
       end
     end
     print "\n"
@@ -96,12 +93,12 @@ class LeftCenterRight
   end
 
   def game_over?
-    players_with_chips = players.map { |p| p.has_chips? }.count(true)
+    players_with_chips = players.map(&:has_chips?).count(true)
     players_with_chips == 1
   end
 
   def show_state
-    print "| "
+    print '| '
     players.each do |player|
       print "#{player.name}: #{player.chip_count}, "
     end

@@ -70,12 +70,12 @@ RSpec.describe LeftCenterRight do
       expect(lcr).to be_an_instance_of LeftCenterRight
     end
 
-    it 'raises an error with less than two players' do
-      expect { LeftCenterRight.new(5) }.to raise_error(RuntimeError, /two players/)
+    it 'raises an error with less than three players' do
+      expect { LeftCenterRight.new(5) }.to raise_error(RuntimeError, /three players/)
     end
 
     it 'raises an error with less than one chip' do
-      expect { LeftCenterRight.new(0, 'a', 'b') }.to raise_error(RuntimeError, /one chip/)
+      expect { LeftCenterRight.new(0, 'a', 'b', 'c') }.to raise_error(RuntimeError, /one chip/)
     end
 
     it 'has the right number of players' do
