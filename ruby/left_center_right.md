@@ -26,18 +26,18 @@ One side on each die is marked with a Wild symbol in place of one of the dots.
 The rules for LCR Wild are the same as with regular LCR, except for the
 following difference:
 
-If you roll any Wilds (or 1s) on your turn, take the following action:
+If you roll any Wilds on your turn, take the following action:
 
-* If you roll 1 Wild (or 1), take one chip from any opponent.
-* If you roll 2 Wilds (or 1s), take two chips from any opponent, or take one
+* If you roll 1 Wild, take one chip from any opponent.
+* If you roll 2 Wilds, take two chips from any opponent, or take one
   chip each from two different opponents.
-* If you roll 3 Wilds (or 1s), you take all the chips from the center pot and
+* If you roll 3 Wilds, you take all the chips from the center pot and
   instantly win the game!
 
 ### Left Brain, Right Brain, Consume Brain
 I restyled LCR for zombies in a game called "Left Brain, Right Brain, Consume
-Brain" played with gummy brains instead of chips.  Instead of discarding brain
-to the center, you eat the brain (no pot).  Halloween party fun for the whole
+Brain" played with gummy brains instead of chips. Instead of discarding brain
+to the center, you eat the brain (no pot). Halloween party fun for the whole
 zombie family!
 
 ## References
