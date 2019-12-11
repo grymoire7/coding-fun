@@ -16,6 +16,8 @@ than rolling all three. When a player has zero chips, they pass the dice on
 their turn, but may receive chips from others and take their next turn
 accordingly. The winner is the last player with chips left.
 
+Simulate a game between two or more players.
+
 ## Variants
 ### A rule sometimes used to shorten the game
 The player who does not receive chips after two passes is out of the game.
