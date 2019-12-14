@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Icomplete
 
 import random
 
@@ -22,6 +23,8 @@ class Game:
 
     def __init__(self, *player_names):
         self.players = []
+        if (len(player_names) < 3):
+            raise Exception("LCR must have at least three players!")
         for player_name in player_names:
             self.players.append(Player(player_name, self.starting_chips))
         self.center = Player("center", 0)
@@ -76,6 +79,6 @@ class Game:
         print("Game over. The winner is {} in {} turns!".format(self.find_winner().name, self.turn_count))
         print("The center has {} chips.".format(self.center.num_chips))
 
-# play the game
-mygame = Game("Alice", "Bob", "Carol", "David")
-mygame.play()
+if __name__ == '__main__':
+    mygame = Game("Alice", "Bob", "Carol", "David")
+    mygame.play()
