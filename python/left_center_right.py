@@ -79,5 +79,4 @@ class Game:
         print("The center has {} chips.".format(self.center.num_chips))
 
 if __name__ == '__main__':
-    mygame = Game("Alice", "Bob", "Carol", "David")
-    mygame.play()
+    Game("Alice", "Bob", "Carol", "David").play()
