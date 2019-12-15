@@ -1,10 +1,13 @@
 # Left Center Right dice game
 
-See [code sample here](left_center_right.rb) with [specs](spec/left_center_right_spec.rb).
+See sample [Ruby code here](left_center_right.rb) with [specs](spec/left_center_right_spec.rb).
+Also available is [sample Python code](../python/left_center_right.py) with [tests](../python/left_center_right_test.py).
 Note that the sample code does not implement any of the variations.
 
 ## Game Description
-Each player receives at least 3 chips. Players take turns to roll three
+Left Center Right is a dice game for 3 or more players.
+
+Each player begins with at least 3 chips. Players take turns to roll three
 six-sided dice, each of which is marked with "L", "C", "R" on one side, and a
 single dot on the three remaining sides. For each "L" or "R" thrown, the player
 must pass one chip to the player to their left or right, respectively. A "C"
@@ -16,7 +19,7 @@ than rolling all three. When a player has zero chips, they pass the dice on
 their turn, but may receive chips from others and take their next turn
 accordingly. The winner is the last player with chips left.
 
-Simulate a game between two or more players.
+Simulate a game between three or more players.
 
 ## Variants
 ### A rule sometimes used to shorten the game
