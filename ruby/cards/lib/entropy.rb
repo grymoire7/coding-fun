@@ -42,6 +42,8 @@ class Entropy
 
   # Calculate a difference array of card indexes before and after the shuffle.
   def difference_array(deck)
+    # TODO: refactor; create a method to return array of mapped indices
+    #       then diff that array
     df = []
     (0..(deck.size - 2)).each do |index|
       ref_index1 = reference.index(deck.card_at(index))
