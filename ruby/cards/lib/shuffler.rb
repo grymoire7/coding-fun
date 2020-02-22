@@ -27,18 +27,21 @@ class Shuffler
   end
 
   def self.riffle(deck)
-    # split deck
+    # split deck near the center
     cards_to_cut = rand(21..31)
     left = deck.draw_from_top(cards_to_cut)
     right = deck.draw_from_top(deck.size)
-    # riffle together
+
+    # randomly choose a side to drop first
     sides = [left, right]
-    side_a = sides.shuffle.pop
-    side_b = sides.pop
-    while side_a.size || side_b.size do
-      clump = side_a.draw_from_bottom([rand(1..7), side_a.size].min)
+    side_a = sides.delete(sides.sample)
+    side_b = sides.delete(sides.sample)
+
+    # riffle together
+    while !side_a.empty? || !side_b.empty? do
+      clump = side_a.pop([rand(1..7), side_a.size].min)
       deck.add_to_bottom(clump)
-      clump = side_b.draw_from_bottom([rand(1..7), side_b.size].min)
+      clump = side_b.pop([rand(1..7), side_b.size].min)
       deck.add_to_bottom(clump)
     end
     deck
