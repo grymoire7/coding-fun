@@ -1,0 +1,106 @@
+# frozen_string_literal: true
+
+require 'csv'
+require './lib/deck.rb'
+require './lib/entropy.rb'
+require './lib/shuffler.rb'
+
+begin
+  require 'rspec/core/rake_task'
+
+  RSpec::Core::RakeTask.new(:spec) do |t|
+    t.rspec_opts = '-f d'
+  end
+
+  task default: :spec
+rescue LoadError
+  puts 'no rspec available to run tests'
+end
+
+namespace :gen do
+  desc 'internal only'
+  task :setup do
+    @ent = Entropy.new
+  end
+
+  desc 'Overhand shuffles only'
+  task overhand: :setup do
+    deck = Deck.new
+    CSV.open('overhand.csv', 'wb') do |csv|
+      20.times do
+        row = @ent.moved_indices(deck)
+        row << @ent.average_shannon { deck }
+        csv << row
+        Shuffler.overhand deck
+      end
+    end
+  end
+
+  desc 'Riffle shuffles only'
+  task riffle: :setup do
+    deck = Deck.new
+    CSV.open('riffle.csv', 'wb') do |csv|
+      20.times do
+        row = @ent.moved_indices(deck)
+        row << @ent.average_shannon { deck }
+        csv << row
+        Shuffler.riffle deck
+      end
+    end
+  end
+
+  desc 'Riffle/Overhand shuffles'
+  task riffle_over: :setup do
+    deck = Deck.new
+    CSV.open('riffle_over.csv', 'wb') do |csv|
+      10.times do
+        row = @ent.moved_indices(deck)
+        row << @ent.average_shannon { deck }
+        csv << row
+        Shuffler.riffle deck
+        row = @ent.moved_indices(deck)
+        row << @ent.average_shannon { deck }
+        csv << row
+        Shuffler.overhand deck
+      end
+    end
+  end
+
+  desc 'Riffle shuffle averages'
+  task avg_riffle: :setup do
+    n_shuffles = 20
+    n_trials = 100
+    rows = Array.new(n_shuffles) { Array.new(53, 0) }
+    n_trials.times do
+      deck = Deck.new
+      # rows.each do |sum_row|
+      (0..(n_shuffles - 1)).each do |i|
+        row = @ent.moved_indices(deck)
+        row << @ent.average_shannon { deck }
+        # puts '========================='
+        # sum_row = rows[i]
+        # p sum_row
+        # puts "row.size = #{row.size}, sum_row.size = #{sum_row.size}"
+        rows[i] = [rows[i], row].transpose.map { |x| x.reduce(:+) }
+        # p rows[i]
+        # puts '-------------------------'
+        Shuffler.riffle deck
+      end
+    end
+
+    # average all the things
+    rows.map! do |row|
+      row.collect { |x| x / n_trials }
+    end
+
+    # p rows
+    CSV.open('avg_riffle.csv', 'wb') do |csv|
+      rows.each do |row|
+        csv << row
+      end
+    end
+  end
+
+  desc 'generate all csv files'
+  task all: %i[overhand riffle riffle_over avg_riffle]
+end

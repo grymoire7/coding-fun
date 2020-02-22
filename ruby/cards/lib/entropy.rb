@@ -38,6 +38,10 @@ class Entropy
     [0.0, e].max
   end
 
+  def moved_indices(deck)
+    deck.cards.map { |c| reference.index(c) }
+  end
+
   private
 
   # Calculate a difference array of card indexes before and after the shuffle.
