@@ -72,6 +72,56 @@ namespace :gen do
 
   desc 'Riffle shuffle averages'
   task avg_riffle: :setup do
+    rows = average_data do |deck|
+      Shuffler.riffle deck
+    end
+
+    CSV.open('avg_riffle.csv', 'wb') do |csv|
+      csv << @header
+      rows.each do |row|
+        csv << row
+      end
+    end
+  end
+
+  desc 'Overhand shuffle averages'
+  task avg_overhand: :setup do
+    rows = average_data do |deck|
+      Shuffler.overhand deck
+    end
+
+    CSV.open('avg_overhand.csv', 'wb') do |csv|
+      csv << @header
+      rows.each do |row|
+        csv << row
+      end
+    end
+  end
+
+  desc 'Riffle overhand shuffle averages'
+  task avg_riffle_over: :setup do
+    index = 0
+    rows = average_data do |deck|
+      puts "index = #{index}"
+      if index % 2 == 0
+        Shuffler.overhand deck
+        puts "over"
+      else
+        Shuffler.riffle deck
+        puts "riffle"
+      end
+      index += 1
+    end
+
+    CSV.open('avg_riffle_over.csv', 'wb') do |csv|
+      csv << @header
+      rows.each do |row|
+        csv << row
+      end
+    end
+  end
+
+  def average_data
     n_shuffles = 20
     n_trials = 100
     rows = Array.new(n_shuffles) { Array.new(53, 0) }
@@ -88,7 +138,8 @@ namespace :gen do
         rows[i] = [rows[i], row].transpose.map { |x| x.reduce(:+) }
         # p rows[i]
         # puts '-------------------------'
-        Shuffler.riffle deck
+        # Shuffler.riffle deck
+        yield(deck)
       end
     end
 
@@ -97,15 +148,9 @@ namespace :gen do
       row.collect { |x| x / n_trials }
     end
 
-    # p rows
-    CSV.open('avg_riffle.csv', 'wb') do |csv|
-      csv << @header
-      rows.each do |row|
-        csv << row
-      end
-    end
+    rows
   end
 
   desc 'generate all csv files'
-  task all: %i[overhand riffle riffle_over avg_riffle]
+  task all: %i[overhand riffle riffle_over avg_riffle avg_overhand avg_riffle_over]
 end
