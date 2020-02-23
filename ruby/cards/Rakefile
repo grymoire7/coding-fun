@@ -21,12 +21,14 @@ namespace :gen do
   desc 'internal only'
   task :setup do
     @ent = Entropy.new
+    @header = [*(0..51), 'entropy'].map { |x| x.to_s }
   end
 
   desc 'Overhand shuffles only'
   task overhand: :setup do
     deck = Deck.new
     CSV.open('overhand.csv', 'wb') do |csv|
+      csv << @header
       20.times do
         row = @ent.moved_indices(deck)
         row << @ent.average_shannon { deck }
@@ -40,6 +42,7 @@ namespace :gen do
   task riffle: :setup do
     deck = Deck.new
     CSV.open('riffle.csv', 'wb') do |csv|
+      csv << @header
       20.times do
         row = @ent.moved_indices(deck)
         row << @ent.average_shannon { deck }
@@ -53,6 +56,7 @@ namespace :gen do
   task riffle_over: :setup do
     deck = Deck.new
     CSV.open('riffle_over.csv', 'wb') do |csv|
+      csv << @header
       10.times do
         row = @ent.moved_indices(deck)
         row << @ent.average_shannon { deck }
@@ -95,6 +99,7 @@ namespace :gen do
 
     # p rows
     CSV.open('avg_riffle.csv', 'wb') do |csv|
+      csv << @header
       rows.each do |row|
         csv << row
       end
