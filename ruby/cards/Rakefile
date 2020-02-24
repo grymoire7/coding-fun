@@ -98,17 +98,56 @@ namespace :gen do
     end
   end
 
+  desc 'Imperfect faro shuffle averages'
+  task avg_ifaro: :setup do
+    rows = average_data do |deck|
+      Shuffler.imperfect_faro deck
+    end
+
+    CSV.open('avg_ifaro.csv', 'wb') do |csv|
+      csv << @header
+      rows.each do |row|
+        csv << row
+      end
+    end
+  end
+
+  desc 'Out faro shuffle averages'
+  task out_faro: :setup do
+    deck = Deck.new
+    CSV.open('out_faro.csv', 'wb') do |csv|
+      csv << @header
+      20.times do
+        row = @ent.moved_indices(deck)
+        row << @ent.average_shannon { deck }
+        csv << row
+        Shuffler.out_faro deck
+      end
+    end
+  end
+
+  desc 'In faro shuffle'
+  task in_faro: :setup do
+    deck = Deck.new
+    CSV.open('in_faro.csv', 'wb') do |csv|
+      csv << @header
+      30.times do
+        row = @ent.moved_indices(deck)
+        row << @ent.average_shannon { deck }
+        csv << row
+        Shuffler.in_faro deck
+      end
+    end
+  end
+
   desc 'Riffle overhand shuffle averages'
   task avg_riffle_over: :setup do
     index = 0
     rows = average_data do |deck|
-      puts "index = #{index}"
       if index % 2 == 0
         Shuffler.overhand deck
-        puts "over"
       else
         Shuffler.riffle deck
-        puts "riffle"
       end
       index += 1
     end
@@ -152,5 +191,9 @@ namespace :gen do
   end
 
   desc 'generate all csv files'
-  task all: %i[overhand riffle riffle_over avg_riffle avg_overhand avg_riffle_over]
+  task all: %i[
+    overhand riffle riffle_over avg_riffle
+    avg_overhand avg_riffle_over avg_ifaro
+    in_faro out_faro
+  ]
 end
