@@ -45,21 +45,12 @@ class Entropy
   private
 
   # Calculate a difference array of card indexes before and after the shuffle.
+  # dF_i = F_{i+1} - F_i
+  # if dF_i is negative then add deck.size
   def difference_array(deck)
-    # TODO: refactor; create a method to return array of mapped indices
-    #       then diff that array
-    df = []
-    (0..(deck.size - 2)).each do |index|
-      ref_index1 = reference.index(deck.card_at(index))
-      ref_index2 = reference.index(deck.card_at(index + 1))
-      df << calc_diff(ref_index1, ref_index2, deck.size)
-    end
-
-    # Diff the last card with the first card.
-    ref_index1 = reference.index(deck.card_at(deck.size - 1))
-    ref_index2 = reference.index(deck.card_at(0))
-    df << calc_diff(ref_index1, ref_index2, deck.size)
-    df
+    a =  moved_indices(deck)
+    b = a.zip(a.rotate).map { |x, y| (y - x).positive? ? (y - x) : (deck.size + y - x) }
+    b
   end
 
   # Calculate the relative frequency of dF values in a histogram in p[].
@@ -80,11 +71,5 @@ class Entropy
       e -= p * Math.log(p) if p.positive?
     end
     e
-  end
-
-  def calc_diff(index1, index2, size)
-    delta = index2 - index1
-    delta += size if delta.negative?
-    delta
   end
 end
