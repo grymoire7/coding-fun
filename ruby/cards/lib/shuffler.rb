@@ -28,6 +28,7 @@ class Shuffler
 
   def self.cut_here(deck)
     # binomial split; previously, rand(21..31)
+    # deck.size / 2
     Array.new(deck.size) { rand(0..1) }.sum
   end
 
@@ -37,23 +38,20 @@ class Shuffler
     left = deck.draw_from_top(cards_to_cut)
     right = deck.draw_from_top(deck.size)
 
-    # randomly choose a side to drop first
-    # sides = [left, right]
-    # side_a = sides.delete(sides.sample)
-    # side_b = sides.delete(sides.sample)
-
     # riffle together
     while !left.empty? || !right.empty?
-      # mixprob = 0.285
-      # deck.add_to_top(left.pop) if rand < mixprob
-      # deck.add_to_top(right.pop) if rand < mixprob
+      mixprob = 0.989
+      deck.add_to_top(left.pop) if rand < mixprob
+      deck.add_to_top(right.pop) if rand < mixprob
 
-      drop_left = rand < (left.size.to_f / (left.size + right.size))
-      if drop_left
-        deck.add_to_top(left.pop)
-      else
-        deck.add_to_top(right.pop)
-      end
+      # drop_left = rand < (left.size.to_f / (left.size + right.size))
+      # if drop_left
+      #   deck.add_to_top(left.pop)
+      #   # puts "L"
+      # else
+      #   deck.add_to_top(right.pop)
+      #   # puts "R"
+      # end
     end
     deck
   end
