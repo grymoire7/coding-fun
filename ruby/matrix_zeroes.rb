@@ -67,7 +67,7 @@ end
 
 def change_col(matrix, j)
   matrix.each do |r|
-    r[j] = (r[j] != 0) ? nil : r[j]
+    r[j] = nil if r[j] != 0
   end
 end
 
