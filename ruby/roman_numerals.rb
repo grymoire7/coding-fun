@@ -18,8 +18,9 @@ class Roman
 
   def self.roman_for(number)
     return '' if number.zero?
+
     ''.tap do |result|
-      PLACES.each_with_index do |rule, _index|
+      PLACES.each do |rule|
         current_tens, current_place = rule
         val, number = number.divmod(current_tens)
         # puts "for #{number}: rule:#{rule}, #{val}, #{number}"
@@ -29,5 +30,22 @@ class Roman
       end
       return result << Roman.roman_for(number)
     end
+  end
+
+  def self.int_for(s)
+    return 0 if s.nil? || s.empty?
+
+    result = 0
+
+    PLACES.each do |rule|
+      current_tens, current_place = rule
+      # puts "#{current_place}, #{s}, #{result}"
+      while s.start_with?(current_place)
+        s = s[current_place.size..-1]
+        result += current_tens
+      end
+    end
+
+    result
   end
 end
