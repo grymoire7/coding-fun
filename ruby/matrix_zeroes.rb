@@ -49,15 +49,15 @@ Could you devise a constant space solution?
 =end
 
 require 'rspec/autorun'
-require 'set'
+# require 'set'
 
 # @param {Integer[][]} matrix
 # @return {Void} Do not return anything, modify matrix in-place instead.
 def set_zeroes(matrix)
   matrix.each_with_index do |r, i|
-    if r.any? { |x| x == 0 }
+    if r.any? { |x| x.zero? }
       matrix[i] = r.each_with_index.map do |x, j|
-        change_col(matrix, j) if x == 0
+        change_col(matrix, j) if x.zero?
         (x != 0) ? nil : 0
       end
     end
@@ -72,7 +72,7 @@ def change_col(matrix, j)
 end
 
 def replace_nils(matrix)
-  matrix.each { |r| r.map! { |x| (x.nil?) ? 0 : x } }
+  matrix.each { |r| r.map! { |x| x.nil? ? 0 : x } }
 end
 
 def cheat(matrix)

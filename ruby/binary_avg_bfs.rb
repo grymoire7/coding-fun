@@ -35,7 +35,7 @@ def get_averages(tree)
   curr_num = 0
   queue = [[tree, depth]]
 
-  loop do
+  until queue.empty?
     curr = queue.pop
     curr_node, curr_depth = curr
 
@@ -52,8 +52,6 @@ def get_averages(tree)
 
     queue.unshift [curr_node.left,  curr_depth + 1] if curr_node.left
     queue.unshift [curr_node.right, curr_depth + 1] if curr_node.right
-
-    break if queue.empty?
   end
 
   ans << Float(curr_sum) / curr_num

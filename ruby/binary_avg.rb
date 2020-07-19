@@ -33,6 +33,7 @@ def get_averages(tree)
 
   collect(tree, level_hash)
 
+  # ???? values.sort?
   level_hash.values.sort.map { |x| x.sum(0.0) / x.size }
 end
 

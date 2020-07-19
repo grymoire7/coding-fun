@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 =begin
-# Rotated Array
+# Rotated Array Search
 
 ## Description
 Suppose a sorted array A is rotated at some pivot unknown to you beforehand.
 
 (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
 
-Find the minimum element.
+Find the target index, else -1.
 
 The array will not contain duplicates.
 
@@ -21,7 +21,7 @@ require 'rspec/autorun'
 # @return Integer          # index of b, else -1
 def find_min(a, b)
   return -1 if a.nil? || a.empty?
-  index = 0
+
   left = 0
   right = a.size - 1
 
