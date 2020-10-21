@@ -1,6 +1,23 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+# Chicago – Dice Game
+# Number of players: 2 or more
+# Number of dice: 2
+#
+# The Chicago dice game is a simple yet fun game. The rules are not very difficult 
+# and the game is decided by pure luck, but still it is very addictive. Once you 
+# start you might not want to stop to see if you can do better in the next game.
+#
+# The game is played in 11 rounds, starting with round 2, then going to round 3 
+# and continuing until round 12. In each round each player takes his or her turn 
+# and rolls both dice, trying to roll the number of that round. For example, in 
+# the round with number 2, you aim to roll a 1 on each dice giving you a total of 2.
+#
+# Every player that rolls the number of the current round gets a point and adds 
+# it to his overall score. After all 11 rounds are finished the game ends and the 
+# player with the higher number of points is declared the winner.
+
 class Die
   def self.roll
     rand(1..6)
