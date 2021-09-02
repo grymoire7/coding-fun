@@ -21,7 +21,7 @@ class Player
   end
 
   def transfer_chip_to(player)
-    return unless has_chips?
+    return unless (player && has_chips?)
     self.chip_count -= 1
     player.chip_count += 1
   end
@@ -62,17 +62,16 @@ class LeftCenterRight
   end
 
   def handle_turn_for(player)
+    transfer_targets = {
+      left:   players.last,
+      center: pot,
+      right:  players[1],
+      # dot:  player      # no point in transferring to self
+    }
     print "[#{@play_counter}] #{player.name} rolls:"
     player.roll.each do |roll|
       print " #{roll}"
-      case roll
-      when :left
-        player.transfer_chip_to(players.last)
-      when :center
-        player.transfer_chip_to(pot)
-      when :right
-        player.transfer_chip_to(players[1])
-      end
+      player.transfer_chip_to(transfer_targets[roll])
     end
     print "\n"
   end
