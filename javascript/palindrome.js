@@ -1,5 +1,3 @@
-var _ = require('underscore');
-
 function isPalindrome(p) {
   if (p === null || (typeof p !== 'string' && !(p instanceof String))) {
       return false;
