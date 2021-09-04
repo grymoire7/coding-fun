@@ -160,13 +160,10 @@ namespace :gen do
   desc 'Riffle overhand shuffle averages'
   task avg_riffle_over: :setup do
     index = 0
+    shuffle_methods = [:overhand, :riffle]
     rows = average_data do |deck|
-      if index % 2 == 0
-        Shuffler.overhand deck
-      else
-        Shuffler.riffle deck
-      end
-      index += 1
+      Shuffler.send(shuffle_methods[index], deck)
+      index = 1 - index
     end
 
     CSV.open('avg_riffle_over.csv', 'wb') do |csv|
