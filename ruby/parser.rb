@@ -106,23 +106,25 @@ class Parser
   def parse
     parsed = []
     return parsed if @input.empty?
+
+    token_map = {
+      /^i\d+e/        => -> { parsed << parse_int },    # integer
+      /^(\d+):.{1,}/  => -> { parsed << parse_string }, # string
+      /^a/            => -> { parsed << parse_array },  # array
+      /^d/            => -> { parsed << parse_dict },   # dictionary
+      nil             => -> { debug "unrecognized token at: #{@input}" }
+    }
+
     debug "Parse: \"#{@input}\""
     until @input.empty?
-      case @input
-      when /^i\d+e/                  # integer
-        parsed << parse_int
-      when /^(\d+):.{1,}/            # string
-        parsed << parse_string
-      when /^a/                      # array
-        parsed << parse_array
-      when /^d/                      # dictionary
-        parsed << parse_dict
-      else
-        debug "unrecognized token at: #{@input}"
-        break
-      end
+      matched_regex = token_map.keys.find { |regex| regex =~ @input }
+      token_map[matched_regex].call
+
+      break if matched_regex.nil?
+
       @input = @scanner.rest
     end
+
     parsed
   end
 

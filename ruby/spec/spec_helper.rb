@@ -14,9 +14,9 @@ require_relative '../chicago'
 require_relative '../left_center_right'
 
 # suppress writing to console
-RSpec.configure do |config|
-  config.before(:each) do
-    allow($stdout).to receive(:puts)
-    allow($stdout).to receive(:write)
-  end
-end
+# RSpec.configure do |config|
+#   config.before(:each) do
+#     allow($stdout).to receive(:puts)
+#     allow($stdout).to receive(:write)
+#   end
+# end
