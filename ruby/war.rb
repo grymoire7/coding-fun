@@ -123,11 +123,8 @@ class War
 
     winners = @pot.group_by(&:value).max.last
 
-    if winners.size == 1
-      return [winners.first.owner, ROUND_STATUS_OK]
-    else
-      return [nil, ROUND_STATUS_TIE]
-    end
+    return [winners.first.owner, ROUND_STATUS_OK] if winners.size == 1
+    [nil, ROUND_STATUS_TIE]
   end
 
   def award_pot_to(player)
