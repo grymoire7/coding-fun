@@ -58,29 +58,28 @@ def num_decodings(s)
     p = s[i - 1]
     return 0 if c == '0' && (p == '0' || p > '2')
 
-    case p
-    when '0'
-      dp[i + 1] = dp[i]
-    when '1'
-      if c == '0'
-        dp[i + 1] = dp[i - 1]
-      else
-        dp[i + 1] = dp[i - 1] + dp[i]
-      end
-    when '2'
-      if c == '0'
-        dp[i + 1] = dp[i - 1]
-      elsif c <= '6'
-        dp[i + 1] = dp[i - 1] + dp[i]
-      else
-        dp[i + 1] = dp[i]
-      end
-    else
-      dp[i + 1] = dp[i]
-    end
+    dp[i + 1] = dp_next(p, c, dp[i], dp[i - 1])
   end
 
   dp[s.size]
+end
+
+def dp_next(p, c, current, last)
+  dp_procs = {
+    # '0' => Proc.new { current },
+    '1' =>  Proc.new {
+              return last  if c == '0'
+              last + current
+            },
+    '2' =>  Proc.new {
+              return last if c == '0'
+              return last + current if c <= '6'
+              current
+            }
+  }
+  dp_procs.default_proc = proc{ |h, k| h[k] = Proc.new { current } }
+
+  dp_procs[p].call
 end
 
 RSpec.describe '#num_decodings' do
