@@ -7,14 +7,15 @@ def max_profit(prices)
   min_buy = prices[0]
   max_profit = 0
   prices.each do |p|
-    if (p < min_buy)
-      min_buy = p
-    else
-      # max_profit = [max_profit, p - min_buy].max
-      if p - min_buy > max_profit
-        max_profit = p - min_buy
-      end
-    end
+    min_buy = [min_buy, p].min
+    max_profit = [max_profit, p - min_buy].max
+    # if (p < min_buy)
+    #   min_buy = p
+    # else
+    #   if p - min_buy > max_profit
+    #     max_profit = p - min_buy
+    #   end
+    # end
   end
   max_profit
 end
