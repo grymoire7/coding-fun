@@ -56,14 +56,8 @@ def one_edit_away?(word1, word2)
     if word1[i] != word2[j]
       return false if diff_count == 1
 
-      if m > n
-        i += 1
-      elsif n > m
-        j += 1
-      else
-        i += 1
-        j += 1
-      end
+      i += 1 if m >= n
+      j += 1 if m <= n
 
       diff_count += 1
     else
