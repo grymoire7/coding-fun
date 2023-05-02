@@ -6,10 +6,16 @@ RSpec.describe Die do
       expect(Die.new).to be_an_instance_of Die
     end
   end
+
+  describe '#roll' do
+    it 'returns a one of the die symbols' do
+      expect(%i[left center right dot]).to include(Die.roll)
+    end
+  end
 end
 
 RSpec.describe Player do
-  let(:name) {'player_name'}
+  let(:name) { 'player_name' }
   let(:chip_count) { rand(3..10) }
   let(:player) { Player.new(name, chip_count) }
   let(:other_player) { Player.new('anything', 0) }
@@ -56,7 +62,7 @@ end
 
 RSpec.describe LeftCenterRight do
   let(:names) { %w[Alice Bob Charlie Donna] }
-  let(:starting_chips) {5}
+  let(:starting_chips) { 5 }
   let!(:lcr) { LeftCenterRight.new(starting_chips, *names) }
 
   describe '#initialize' do
@@ -83,8 +89,8 @@ RSpec.describe LeftCenterRight do
     end
 
     it 'creates an array of players with the given names' do
-      expect(lcr.players.map {|p| p.name}).to include(*names)
-     end
+      expect(lcr.players.map(&:name)).to include(*names)
+    end
   end
 
   describe '#play' do

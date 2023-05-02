@@ -21,7 +21,8 @@ class Player
   end
 
   def transfer_chip_to(player)
-    return unless (player && has_chips?)
+    return unless player && has_chips?
+
     self.chip_count -= 1
     player.chip_count += 1
   end
@@ -39,6 +40,7 @@ class LeftCenterRight
   def initialize(starting_chips, *player_names)
     raise 'LCR needs at least three players!' if player_names.size < 3
     raise 'LCR needs at least one chip!' if starting_chips < 1
+
     @players = player_names.map do |name|
       Player.new(name, starting_chips)
     end
@@ -63,9 +65,9 @@ class LeftCenterRight
 
   def handle_turn_for(player)
     transfer_targets = {
-      left:   players.last,
+      left: players.last,
       center: pot,
-      right:  players[1],
+      right: players[1]
       # dot:  player      # no point in transferring to self
     }
     print "[#{@play_counter}] #{player.name} rolls:"
