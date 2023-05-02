@@ -10,7 +10,7 @@ class Card
 
     @rank = rank
     @suit = suit
-    @state = [ :face_down ]
+    @state = [:face_down]
   end
 
   def to_s

@@ -25,18 +25,18 @@ def find_min(a, b)
   left = 0
   right = a.size - 1
 
-  while (left <= right)
+  while left <= right
     mid = (left + right) / 2
     return mid if a[mid] == b
 
     if a[left] < a[mid]
-      if  b >= a[left] && b < a[mid]  # b is here
+      if b >= a[left] && b < a[mid] # b is here
         right = mid - 1
       else
         left = mid + 1
       end
     else
-      if  b > a[mid] && b <= a[right]  # b is here
+      if b > a[mid] && b <= a[right] # b is here
         left = mid + 1
       else
         right = mid - 1

@@ -45,6 +45,7 @@ class Parser
     ret = nil
     intstring = @scanner.scan(/^i\d+e/)
     return nil if intstring.nil?
+
     integer = Regexp.last_match[1].to_i if /^i(\d+)e/ =~ intstring
     ret = integer if integer
     ret
@@ -71,6 +72,7 @@ class Parser
 
   def parse_array
     return [] if @input !~ /^a/
+
     @scanner.scan(/a/)
 
     # Parse the rest with a new parser which should fail when it encounters the
@@ -87,6 +89,7 @@ class Parser
   def parse_dict
     ret = {}
     return ret if @input !~ /^d/
+
     @scanner.scan(/d/)
 
     # Parse the rest with a new parser which should fail when it encounters the
@@ -108,11 +111,11 @@ class Parser
     return parsed if @input.empty?
 
     token_map = {
-      /^i\d+e/        => -> { parsed << parse_int },    # integer
-      /^(\d+):.{1,}/  => -> { parsed << parse_string }, # string
-      /^a/            => -> { parsed << parse_array },  # array
-      /^d/            => -> { parsed << parse_dict },   # dictionary
-      nil             => -> { debug "unrecognized token at: #{@input}" }
+      /^i\d+e/       => -> { parsed << parse_int },    # integer
+      /^(\d+):.{1,}/ => -> { parsed << parse_string }, # string
+      /^a/           => -> { parsed << parse_array },  # array
+      /^d/           => -> { parsed << parse_dict },   # dictionary
+      nil            => -> { debug "unrecognized token at: #{@input}" }
     }
 
     debug "Parse: \"#{@input}\""

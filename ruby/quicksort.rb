@@ -30,7 +30,7 @@ def partition(arr, first, last)
   puts "p: pivot = #{pivot}, first = #{first}, last = #{last}"
   puts "p: arr = #{arr}"
 
-  for i in (first...last)
+  (first...last).each do |i|
     if arr[i] < pivot
       arr[i], arr[p_index] = arr[p_index], arr[i]
       p_index += 1
@@ -46,7 +46,6 @@ end
 
 RSpec.describe '#quicksort' do
   describe '#quicksort' do
-
     it 'solves example 1' do
       arr = [3, 4, 1, 5, 7, 1, 4]
       arr_sorted = arr.sort

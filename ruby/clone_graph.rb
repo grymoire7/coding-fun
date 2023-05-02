@@ -89,7 +89,7 @@ end
 
 # @param {Node} node
 # @return {Node}
-def cloneGraph(node)
+def clone_graph(node)
   return nil if node.nil?
 
   to_process = [node]
@@ -176,11 +176,11 @@ RSpec.describe '#word_break' do
   let(:example1) { [[2, 4], [1, 3], [2, 4], [1, 3]] }
   let(:example2) { [[]] }
 
-  describe '#cloneGraph' do
+  describe '#clone_graph' do
     it 'solves example 1' do
       graph = array_to_graph(example1)
       # show_graph(graph)
-      cloned = cloneGraph(graph)
+      cloned = clone_graph(graph)
       # show_graph(cloned)
       answer = graph_to_array(cloned)
 
@@ -191,7 +191,7 @@ RSpec.describe '#word_break' do
 
     it 'solves example 2' do
       graph = array_to_graph(example2)
-      cloned = cloneGraph(graph)
+      cloned = clone_graph(graph)
       answer = graph_to_array(cloned)
 
       expect(clones?(graph, cloned)).to eq(true)

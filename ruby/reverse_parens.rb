@@ -15,9 +15,9 @@
 # reverseParentheses(s) = "acbde".
 #
 class ReverseParens
-  def self.check(s)
-    while s.match(/[\(\)]+/) do
-      s = s.gsub(/\(([^\)\(]+)\)/) { Regexp.last_match[1].reverse }
+  def self.check(str)
+    while str.match(/[\(\)]+/)
+      str = str.gsub(/\(([^\)\(]+)\)/) { Regexp.last_match[1].reverse }
     end
     s
   end

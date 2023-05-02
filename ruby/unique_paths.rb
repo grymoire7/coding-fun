@@ -57,7 +57,6 @@ def unique_paths(matrix)
   paths[-1][-1]
 end
 
-
 RSpec.describe '#unique_paths' do
   describe '#unique_paths' do
     it 'solves example 1' do

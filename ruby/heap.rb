@@ -34,11 +34,11 @@ class Heap
   end
 
   def right_index(index)
-    2*index + 2
+    2 * index + 2
   end
 
   def left_index(index)
-    2*index + 1
+    2 * index + 1
   end
 
   def parent_index(index)
@@ -60,7 +60,6 @@ end
 
 RSpec.describe 'Heap' do
   describe '#add' do
-
     it 'solves example 1' do
       h = Heap.new
       h.add 5

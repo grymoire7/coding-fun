@@ -21,8 +21,8 @@ namespace :gen do
   desc 'internal only'
   task :setup do
     @ent = Entropy.new
-    @header = [*(0..51), 'entropy'].map { |x| x.to_s }
-    @pos_header = ['shuffle', 'orig_index', 'new_index']
+    @header = [*(0..51), 'entropy'].mapz(&:to_s)
+    @pos_header = %w[shuffle orig_index new_index]
   end
 
   desc 'Overhand shuffles only'
@@ -44,9 +44,9 @@ namespace :gen do
     deck = Deck.new
     CSV.open('riffle_pos.csv', 'wb') do |csv|
       csv << @pos_header
-      (0..19).each do |shuffle|
+      20.times do |shuffle|
         moved = @ent.moved_indices(deck)
-        (0..51).each do |orig_index|
+        52.times do |orig_index|
           row  = [shuffle, orig_index, moved[orig_index]]
           csv << row
         end
@@ -160,7 +160,7 @@ namespace :gen do
   desc 'Riffle overhand shuffle averages'
   task avg_riffle_over: :setup do
     index = 0
-    shuffle_methods = [:overhand, :riffle]
+    shuffle_methods = %i[overhand riffle]
     rows = average_data do |deck|
       Shuffler.send(shuffle_methods[index], deck)
       index = 1 - index

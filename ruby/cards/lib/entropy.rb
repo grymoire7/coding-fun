@@ -48,9 +48,8 @@ class Entropy
   # dF_i = F_{i+1} - F_i
   # if dF_i is negative then add deck.size
   def difference_array(deck)
-    a =  moved_indices(deck)
-    b = a.zip(a.rotate).map { |x, y| (y - x).positive? ? (y - x) : (deck.size + y - x) }
-    b
+    a = moved_indices(deck)
+    _b = a.zip(a.rotate).map { |x, y| (y - x).positive? ? (y - x) : (deck.size + y - x) }
   end
 
   # Calculate the relative frequency of dF values in a histogram in p[].

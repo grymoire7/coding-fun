@@ -44,17 +44,16 @@ def merge(intervals)
   merged
 end
 
-
 RSpec.describe '#merge' do
-  let(:dict1) { %w(leet code) }
+  let(:dict1) { %w[leet code] }
 
   describe '#merge' do
     it 'solves example 1' do
-      expect(merge([[1,3],[2,6],[8,10],[15,18]])).to eq([[1,6],[8,10],[15,18]])
+      expect(merge([[1, 3], [2, 6], [8, 10], [15, 18]])).to eq([[1, 6], [8, 10], [15, 18]])
     end
 
     it 'solves example 2' do
-      expect(merge([[1,4],[4,5]])).to eq([[1,5]])
+      expect(merge([[1, 4], [4, 5]])).to eq([[1, 5]])
     end
 
     it 'solves example 3' do

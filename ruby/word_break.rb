@@ -35,7 +35,7 @@ require 'rspec/autorun'
 require 'set'
 
 def word_break(s, word_dict)
-  return false if s.nil? || s.size == 0 || word_dict.nil? || word_dict.size == 0
+  return false if s.nil? || s.empty? || word_dict.nil? || word_dict.empty?
 
   dict = Set.new
   word_dict.each { |word| dict.add word }
@@ -45,7 +45,7 @@ def word_break(s, word_dict)
   1.upto(s.size) do |i|
     (i-1).downto(0) do |j|
       # puts "#{i}, #{j}, #{s[j..(i-1)]}, dp[#{j}]=#{dp[j]}"
-      if (dp[j] && dict.include?(s[j..(i-1)]))
+      if dp[j] && dict.include?(s[j..(i - 1)])
         dp[i] = true
         break
       end
@@ -55,12 +55,12 @@ def word_break(s, word_dict)
 end
 
 RSpec.describe '#word_break' do
-  let(:dict1) { %w(leet code) }
-  let(:dict2) {["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"]}
-  let(:str2) { "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab" }
-  let(:dict3) { %w(cats dog sand and cat) }
+  let(:dict1) { %w[leet code] }
+  let(:dict2) { ['a', 'aa', 'aaa', 'aaaa', 'aaaaa', 'aaaaaa', 'aaaaaaa', 'aaaaaaaa', 'aaaaaaaaa', 'aaaaaaaaaa'] }
+  let(:str2) { 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab' }
+  let(:dict3) { %w[cats dog sand and cat] }
   let(:str3) { 'catsandog' }
-  let(:dict4) { %w(a b) }
+  let(:dict4) { %w[a b] }
   let(:str4) { 'ab' }
 
   describe '#word_break' do

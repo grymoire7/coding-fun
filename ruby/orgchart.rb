@@ -39,7 +39,6 @@ def make_org_chart(data_string)
   render(org_tree)
 end
 
-
 # ------------------------------------------------------------------------------
 # @param {String} data_string
 # @return {Hash}
@@ -59,7 +58,7 @@ end
 # @return {TreeNode}
 def create_org_tree(node_hash)
   root = TreeNode.new(Person.new('root'))
-  node_hash.values.each do |node|
+  node_hash.each_value do |node|
     # put node in manager's children array
     mgr_id = node.person.mgr_id
     manager_node = node_hash[mgr_id] || root

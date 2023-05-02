@@ -5,17 +5,17 @@
 # Number of players: 2 or more
 # Number of dice: 2
 #
-# The Chicago dice game is a simple yet fun game. The rules are not very difficult 
-# and the game is decided by pure luck, but still it is very addictive. Once you 
+# The Chicago dice game is a simple yet fun game. The rules are not very difficult
+# and the game is decided by pure luck, but still it is very addictive. Once you
 # start you might not want to stop to see if you can do better in the next game.
 #
-# The game is played in 11 rounds, starting with round 2, then going to round 3 
-# and continuing until round 12. In each round each player takes his or her turn 
-# and rolls both dice, trying to roll the number of that round. For example, in 
+# The game is played in 11 rounds, starting with round 2, then going to round 3
+# and continuing until round 12. In each round each player takes his or her turn
+# and rolls both dice, trying to roll the number of that round. For example, in
 # the round with number 2, you aim to roll a 1 on each dice giving you a total of 2.
 #
-# Every player that rolls the number of the current round gets a point and adds 
-# it to his overall score. After all 11 rounds are finished the game ends and the 
+# Every player that rolls the number of the current round gets a point and adds
+# it to his overall score. After all 11 rounds are finished the game ends and the
 # player with the higher number of points is declared the winner.
 
 class Die
@@ -46,6 +46,7 @@ class Chicago
 
   def initialize(*player_names)
     raise 'Chicago needs at least two players!' if player_names.size < 2
+
     @players = player_names.map do |name|
       Player.new(name, 2)
     end
@@ -56,13 +57,13 @@ class Chicago
     scores.each_key { |k| scores[k] = 0 }
   end
 
-  def play_round(n)
+  def play_round(round)
     players.each do |player|
       # Play
       total_roll = player.roll
       print "#{n}: #{player.name} rolls #{total_roll}"
       # Score
-      if total_roll == n
+      if total_roll == round
         scores[player.name] = scores[player.name] + 1
         print ' *'
       end

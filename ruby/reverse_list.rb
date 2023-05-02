@@ -8,6 +8,7 @@ require 'rspec/autorun'
 # Definition for singly-linked list.
 class ListNode
   attr_accessor :val, :next
+
   def initialize(val = 0, _next = nil)
     @val = val
     @next = _next
@@ -41,7 +42,6 @@ def reverse_list(head)
   end
   curr
 end
-
 
 # ###############################################################################
 # Tests

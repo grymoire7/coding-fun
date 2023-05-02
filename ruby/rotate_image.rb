@@ -87,65 +87,65 @@ def xswap(matrix, r, i)
 end
 
 RSpec.describe '#rotate' do
-  let(:image1) {
+  let(:image1) do
     [
       [1, 2, 3],
       [4, 5, 6],
       [7, 8, 9]
     ]
-  }
-  let(:answer1) {
+  end
+  let(:answer1) do
     [
       [7, 4, 1],
       [8, 5, 2],
       [9, 6, 3]
     ]
-  }
+  end
 
-  let(:image2) {
+  let(:image2) do
     [
       [ 5,  1,  9, 11],
       [ 2,  4,  8, 10],
       [13,  3,  6,  7],
       [15, 14, 12, 16]
     ]
-  }
-  let(:answer2) {
+  end
+  let(:answer2) do
     [
       [15, 13,  2,  5],
       [14,  3,  4,  1],
       [12,  6,  8,  9],
       [16,  7, 10, 11]
     ]
-  }
+  end
 
-  let(:image3) {
+  let(:image3) do
     [
       [1]
     ]
-  }
-  let(:answer3) {
+  end
+  let(:answer3) do
     [
       [1]
     ]
-  }
+  end
 
-  let(:image4) {
+  let(:image4) do
     [
       [ 1,  2,  3,  4],
       [ 5,  6,  7,  8],
       [ 9, 10, 11, 12],
       [13, 14, 15, 16]
     ]
-  }
-  let(:answer4) {
+  end
+  let(:answer4) do
     [
       [13,  9,  5,  1],
       [14, 10,  6,  2],
       [15, 11,  7,  3],
       [16, 12,  8,  4]
     ]
-  }
+  end
 
   describe '#rotate' do
     it 'solves example 1' do

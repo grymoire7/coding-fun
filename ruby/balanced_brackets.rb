@@ -43,23 +43,21 @@ Output: true
 
 require 'rspec/autorun'
 
-# @param {String} s
+# @param {String} str
 # @return {Boolean}
-def is_valid(s)
-  return true if s.nil? || s.empty?
+def is_valid(str)
+  return true if str.nil? || str.empty?
 
-  parens = {'(' => ')', '[' => ']', '{' => '}'}
+  parens = { '(' => ')', '[' => ']', '{' => '}' }
   stack = []
 
-  s.chars.each do |c|
+  str.chars.each do |c|
     if parens.keys.include? c
       stack.push c
     elsif parens.values.include? c
-      if !stack.empty? && (parens[stack[-1]] == c)
-        stack.pop
-      else
-        return false
-      end
+      return false unless !stack.empty? && (parens[stack[-1]] == c)
+
+      stack.pop
     # else not a paren we care about
     end
   end

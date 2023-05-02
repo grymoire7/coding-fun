@@ -20,11 +20,12 @@ require 'rspec/autorun'
 # @return Integer
 def find_min(a)
   return nil if a.nil? || a.empty?
+
   index = 0
   left = 0
   right = a.size - 1
 
-  while (left <= right)
+  while left <= right
     mid = (left + right) / 2
     if a[mid] < a[index]
       index = mid

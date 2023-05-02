@@ -45,12 +45,11 @@ def rob(nums)
 
   # dp[n] = f(dp[n-1], dp[n-2]) = [dp[n-1], dp[n-2] + nums[n]].max
   (1..(nums.size)).each do |i|
-    dp[i] = [dp[i-1], (dp[i-2] || 0) + nums[i - 1]].max
+    dp[i] = [dp[i - 1], (dp[i - 2] || 0) + nums[i - 1]].max
   end
 
   dp[nums.size]
 end
-
 
 RSpec.describe '#rob' do
   describe '#rob' do

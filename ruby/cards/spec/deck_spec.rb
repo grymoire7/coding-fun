@@ -55,7 +55,7 @@ RSpec.describe Deck do
 
   describe '#draw_from_bottom' do
     it 'draws the ace of spades in a new deck' do
-      expect(deck.draw_from_bottom).to eq(Card.new rank: :ace, suit: :spades)
+      expect(deck.draw_from_bottom).to eq(Card.new(rank: :ace, suit: :spades))
       expect(deck.size).to eq(51)
     end
   end
@@ -90,7 +90,7 @@ RSpec.describe Deck do
 
   describe '#draw' do
     it 'draws the ace of hearts from a new deck' do
-      expect(deck.draw(rank: :ace, suit: :hearts)).to eq(Card.new rank: :ace, suit: :hearts)
+      expect(deck.draw(rank: :ace, suit: :hearts)).to eq(Card.new(rank: :ace, suit: :hearts))
       expect(deck.size).to eq(51)
     end
   end

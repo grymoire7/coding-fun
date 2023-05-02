@@ -66,18 +66,20 @@ end
 
 def dp_next(p, c, current, last)
   dp_procs = {
-    # '0' => Proc.new { current },
-    '1' =>  Proc.new {
-              return last  if c == '0'
-              last + current
-            },
-    '2' =>  Proc.new {
-              return last if c == '0'
-              return last + current if c <= '6'
-              current
-            }
+    # '0' => proc { current },
+    '1' => proc do
+             return last if c == '0'
+
+             last + current
+           end,
+    '2' => proc do
+             return last if c == '0'
+             return last + current if c <= '6'
+
+             current
+           end
   }
-  dp_procs.default_proc = proc{ |h, k| h[k] = Proc.new { current } }
+  dp_procs.default_proc = proc { |h, k| h[k] = proc { current } }
 
   dp_procs[p].call
 end
@@ -97,9 +99,10 @@ RSpec.describe '#num_decodings' do
     end
 
     it 'solves example 4' do
-      expect(num_decodings(
+      result = num_decodings(
         '4757562545844617494555774581341211511296816786586787755257741178599337186486723247528324612117156948'
-      )).to eq(589824)
+      )
+      expect(result).to eq(589_824)
     end
 
     it 'solves example 5' do

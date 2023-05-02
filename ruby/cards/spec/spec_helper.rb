@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../lib/card'
 require_relative '../lib/deck'
 require_relative '../lib/shuffler'

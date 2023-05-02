@@ -66,14 +66,13 @@ end
 RSpec.describe '#max_profit' do
   describe '#max_profit' do
     it 'solves example 1' do
-      expect(max_profit([3,3,5,0,0,3,1,4])).to eq(6)
+      expect(max_profit([3, 3, 5, 0, 0, 3, 1, 4])).to eq(6)
     end
     it 'solves example 2' do
-      expect(max_profit([1,2,3,4,5])).to eq(4)
+      expect(max_profit([1, 2, 3, 4, 5])).to eq(4)
     end
     it 'solves example 3' do
-      expect(max_profit([7,6,4,3,1])).to eq(0)
+      expect(max_profit([7, 6, 4, 3, 1])).to eq(0)
     end
   end
 end
-

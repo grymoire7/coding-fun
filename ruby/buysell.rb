@@ -23,8 +23,7 @@ end
 RSpec.describe '#max_profit' do
   describe '#max_profit' do
     it 'works' do
-      expect(max_profit([7,1,5,3,6,4])).to eq(5)
+      expect(max_profit([7, 1, 5, 3, 6, 4])).to eq(5)
     end
   end
 end
-

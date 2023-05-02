@@ -71,10 +71,11 @@ def ice_cream_parlor(m, arr)
   used = {}
 
   (0..arr.size).each do |i|
-    next if used.has_key?(arr[i]) # optional
+    next if used.key?(arr[i]) # optional
+
     used[arr[i]] = true           # speed-up
 
-    ((i+1)...arr.size).each do |j|
+    ((i + 1)...arr.size).each do |j|
       return [i + 1, j + 1] if arr[i] + arr[j] == m
     end
   end

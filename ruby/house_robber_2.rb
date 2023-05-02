@@ -54,12 +54,11 @@ def rob_helper(nums)
   dp = Array.new(nums.size + 1, 0)
 
   (1..(nums.size)).each do |i|
-    dp[i] = [dp[i-1], (dp[i-2] || 0) + nums[i - 1]].max
+    dp[i] = [dp[i - 1], (dp[i - 2] || 0) + nums[i - 1]].max
   end
 
   dp[nums.size]
 end
-
 
 RSpec.describe '#rob' do
   describe '#rob' do

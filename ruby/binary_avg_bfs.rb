@@ -59,7 +59,6 @@ def get_averages(tree)
   ans
 end
 
-
 RSpec.describe '#get_averages' do
   describe '#get_averages' do
     let(:tree) { Node.new(1, left: Node.new(3), right: Node.new(4)) }

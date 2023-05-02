@@ -15,7 +15,7 @@ require 'rspec/autorun'
 # @return n
 def floor_sqrt(n)
   return nil if n.nil? || n.negative?
-  return n if n == 0 || n == 1
+  return n if n.zero? || n == 1
 
   left = 1
   right = n
@@ -52,6 +52,5 @@ RSpec.describe '#floor_sqrt' do
     it 'solves example 3' do
       expect(floor_sqrt(0)).to eq(0)
     end
-
   end
 end

@@ -57,16 +57,19 @@ class Deck
     found = []
     @cards.delete_if { |c| found << c if c == card }
     return found.first if found.size == 1
+
     found
   end
 
   def draw_from_top(num = 1)
-    return  @cards.shift if num == 1
+    return @cards.shift if num == 1
+
     @cards.shift(num)
   end
 
   def draw_from_bottom(num = 1)
     return @cards.pop if num == 1
+
     @cards.pop(num)
   end
 

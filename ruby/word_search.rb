@@ -69,13 +69,13 @@ def dfs(board, word, i, j, k = 0)
 end
 
 RSpec.describe '#exist' do
-  let(:board1) {
+  let(:board1) do
     [
-      ['A', 'B', 'C', 'E'],
-      ['S', 'F', 'C', 'S'],
-      ['A', 'D', 'E', 'E']
+      %w[A B C E],
+      %w[S F C S],
+      %w[A D E E]
     ]
-  }
+  end
 
   describe '#exist' do
     it 'solves example 1' do

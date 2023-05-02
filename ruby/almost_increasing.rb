@@ -3,33 +3,35 @@
 # the array.
 #
 class AlmostIncreasing
-
   def self.check(sequence)
     return false if sequence.size <= 1
-    bad_indices = self.nonIncreasingIndices(sequence)
+
+    bad_indices = non_increasing_indices(sequence)
     puts "seq = #{sequence}"
     puts "bad = #{bad_indices}"
     return false if bad_indices.size > 1
     return true  if bad_indices.empty?
+
     bad_indices.each do |i|
       seq = sequence.clone
       puts "Removing #{seq[i]} at #{i}"
       seq.delete_at i
-      return true if nonIncreasingIndices(seq).empty?
-      if (i < sequence.size - 1)
+      return true if non_increasing_indices(seq).empty?
+
+      if i < sequence.size - 1
         seq = sequence.clone
-        seq.delete_at i+1
-        return true if nonIncreasingIndices(seq).empty?
+        seq.delete_at i + 1
+        return true if non_increasing_indices(seq).empty?
       end
     end
     false
   end
 
-  def self.nonIncreasingIndices(sequence)
+  def self.non_increasing_indices(sequence)
     non_increasing_indices = []
-    (0..(sequence.size-2)).each do |i|
-      a, b = sequence[i..(i+1)]
-      if !( a < b )
+    (0..(sequence.size - 2)).each do |i|
+      a, b = sequence[i..(i + 1)]
+      if !(a < b)
         non_increasing_indices << i
       end
     end
@@ -37,15 +39,15 @@ class AlmostIncreasing
   end
 
   # Brute force works but takes too long.
-  def self.bruteForce(sequence)
+  def self.brute_force(sequence)
     (0...sequence.size).each do |i|
       seq = sequence.clone
       seq.delete_at i
-      seqFail = false
+      seq_fail = false
       seq.each_cons(2) do |a, b|
-        seqFail = true if a >= b
+        seq_fail = true if a >= b
       end
-      return true if not seqFail
+      return true unless seq_fail
     end
     false
   end

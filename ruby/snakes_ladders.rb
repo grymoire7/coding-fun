@@ -13,9 +13,9 @@ require 'set'
 
 QueueEntry = Struct.new(:vertex, :dist)
 
-# Complete the quickestWayUp function below.
-def quickestWayUp(ladders, snakes)
-  grid_size = 100  # 10 x 10 grid
+# Complete the quickest_way_up function below.
+def quickest_way_up(ladders, snakes)
+  grid_size = 100 # 10 x 10 grid
   wormholes = ladders.to_h.merge(snakes.to_h)
 
   visited = Array.new(grid_size, false)
@@ -38,7 +38,7 @@ def quickestWayUp(ladders, snakes)
 
     while (j <= (v + 6)) && (j < grid_size)
       # process only unvisited
-      if !visited[j]
+      unless visited[j]
         # puts "> process j = #{j}"
         # calc distance & mark as visited
         a = QueueEntry.new(j, q_entry.dist + 1)
@@ -46,9 +46,7 @@ def quickestWayUp(ladders, snakes)
 
         # Check if there's a wormhole (snake or ladder)
         # at 'j' then other end of wormhole becomes the adjacent of 'j'
-        if wormholes.key? j
-          a.vertex = wormholes[j]
-        end
+        a.vertex = wormholes[j] if wormholes.key? j
 
         queue.push a
       end
@@ -59,7 +57,7 @@ def quickestWayUp(ladders, snakes)
   q_entry.dist
 end
 
-RSpec.describe '#quickestWayUp' do
+RSpec.describe '#quickest_way_up' do
   let(:ladders1) { [[32, 62], [42, 68], [12, 98]] }
   let(:snakes1) { [[95, 13], [97, 25], [93, 37], [79, 27], [75, 19], [49, 47], [67, 17]] }
 
@@ -75,25 +73,25 @@ RSpec.describe '#quickestWayUp' do
   let(:ladders5) { [[1, 55], [23, 99]] }
   let(:snakes5) { [[56, 22]] }
 
-  describe '#quickestWayUp' do
+  describe '#quickest_way_up' do
     it 'solves example 1' do
-      expect(quickestWayUp(ladders1, snakes1)).to eq(3)
+      expect(quickest_way_up(ladders1, snakes1)).to eq(3)
     end
 
     it 'solves example 2' do
-      expect(quickestWayUp(ladders2, snakes2)).to eq(5)
+      expect(quickest_way_up(ladders2, snakes2)).to eq(5)
     end
 
     it 'solves example 3' do
-      expect(quickestWayUp(ladders3, snakes3)).to eq(17)
+      expect(quickest_way_up(ladders3, snakes3)).to eq(17)
     end
 
     it 'solves example 4' do
-      expect(quickestWayUp(ladders4, snakes4)).to eq(2)
+      expect(quickest_way_up(ladders4, snakes4)).to eq(2)
     end
 
     it 'solves example 5' do
-      expect(quickestWayUp(ladders5, snakes5)).to eq(3)
+      expect(quickest_way_up(ladders5, snakes5)).to eq(3)
     end
   end
 end

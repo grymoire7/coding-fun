@@ -18,13 +18,13 @@ def insertion_sort(arr)
     if arr[i] > arr[i + 1]
       moved = false
       i.downto(0) do |j|
-        if arr[j] < arr[i + 1]
-          # puts "-- moving arr[#{i + 1}] = #{arr[i + 1]} to arr[#{j}] = #{arr[j]}"
-          tmp = arr.delete_at(i + 1)
-          arr.insert(j + 1, tmp)
-          moved = true
-          break
-        end
+        next unless arr[j] < arr[i + 1]
+
+        # puts "-- moving arr[#{i + 1}] = #{arr[i + 1]} to arr[#{j}] = #{arr[j]}"
+        tmp = arr.delete_at(i + 1)
+        arr.insert(j + 1, tmp)
+        moved = true
+        break
       end
       unless moved
         tmp = arr.delete_at(i + 1)

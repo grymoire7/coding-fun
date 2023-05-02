@@ -65,6 +65,7 @@ end
 
 class War
   attr_accessor :players, :hands, :pot
+
   DEBUG = false
   ROUND_STATUS_OK  = 0
   ROUND_STATUS_TIE = 1
@@ -78,6 +79,7 @@ class War
 
   def initialize(*player_names)
     raise 'war needs at least two players' if player_names.size < 2
+
     @players = player_names
     @pot = Pot.new
     @hands = {}
@@ -124,6 +126,7 @@ class War
     winners = @pot.group_by(&:value).max.last
 
     return [winners.first.owner, ROUND_STATUS_OK] if winners.size == 1
+
     [nil, ROUND_STATUS_TIE]
   end
 
