@@ -30,8 +30,8 @@ RSpec.describe Chicago do
       expect(chicago.players.size).to eq(2)
     end
     it 'creates an array of players with names' do
-      expect(chicago.players.map {|p| p.name}).to include(*names)
-     end
+      expect(chicago.players.map(&:name)).to include(*names)
+    end
   end
 
   describe 'Die' do
