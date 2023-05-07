@@ -16,9 +16,9 @@
 #
 class ReverseParens
   def self.check(str)
-    while str.match(/[\(\)]+/)
-      str = str.gsub(/\(([^\)\(]+)\)/) { Regexp.last_match[1].reverse }
+    while str.match(/[()]+/)
+      str = str.gsub(/\(([^)(]+)\)/) { Regexp.last_match[1].reverse }
     end
-    s
+    str
   end
 end

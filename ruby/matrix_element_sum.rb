@@ -8,7 +8,7 @@ class MatrixElementSum
       (0...row.size).each do |j|
         next if ignore_columns.include? j
 
-        ignoreColumns << j if (row[j]).zero?
+        ignore_columns << j if (row[j]).zero?
         sum += row[j]
       end
     end
