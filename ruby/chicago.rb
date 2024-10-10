@@ -61,7 +61,7 @@ class Chicago
     players.each do |player|
       # Play
       total_roll = player.roll
-      print "#{n}: #{player.name} rolls #{total_roll}"
+      print "#{round}: #{player.name} rolls #{total_roll}"
       # Score
       if total_roll == round
         scores[player.name] = scores[player.name] + 1
