@@ -54,10 +54,10 @@ require 'rspec/autorun'
 # @param {Integer[][]} matrix
 # @return {Void} Do not return anything, modify matrix in-place instead.
 def set_zeroes(matrix)
-  matrix.each_with_index do |r, i|
-    next unless r.any?(&:zero?)
+  matrix.each_with_index do |row, i|
+    next unless row.any? { |elt| elt == 0 }
 
-    matrix[i] = r.each_with_index.map do |x, j|
+    matrix[i] = row.each_with_index.map do |x, j|
       change_col(matrix, j) if x.zero?
       x != 0 ? nil : 0
     end
