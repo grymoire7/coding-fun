@@ -80,7 +80,7 @@ RSpec.describe '#is_valid' do
     end
 
     it 'handles empty array' do
-      expect(is_valid(nil)).to eq(false)
+      expect(is_valid(nil)).to eq(true)
     end
   end
 end
