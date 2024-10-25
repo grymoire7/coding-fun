@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# frozen_string_literal: true
 
 # Chicago – Dice Game
 # Number of players: 2 or more
@@ -18,91 +17,117 @@
 # it to his overall score. After all 11 rounds are finished the game ends and the
 # player with the higher number of points is declared the winner.
 
+require 'rspec/autorun'
+
 class Die
   def self.roll
     rand(1..6)
   end
 end
 
+# The Player class is responsible for rolling the dice and keeping track of their score.
 class Player
-  attr_reader :dice_count, :name
+  attr_reader :name, :score
 
-  def initialize(name, dice_count)
+  def initialize(name)
     @name = name
-    @dice_count = dice_count
+    @score = 0
   end
 
-  def roll
-    total = 0
-    dice_count.times do
-      total += Die.roll
-    end
-    total
+  def play(round)
+    round_score = Die.roll + Die.roll
+    @score += 1 if round_score == round
+  end
+
+  def reset
+    @score = 0
   end
 end
 
+# The Chicago class is responsible for managing the game and the players.
 class Chicago
-  attr_reader :players, :scores
+  attr_reader :players
 
   def initialize(*player_names)
     raise 'Chicago needs at least two players!' if player_names.size < 2
 
-    @players = player_names.map do |name|
-      Player.new(name, 2)
-    end
-    @scores = Hash[player_names.zip([0] * player_names.size)]
+    @players = player_names.map { |name| Player.new(name) }
   end
 
-  def reset
-    scores.each_key { |k| scores[k] = 0 }
-  end
-
-  def play_round(round)
-    players.each do |player|
-      # Play
-      total_roll = player.roll
-      print "#{round}: #{player.name} rolls #{total_roll}"
-      # Score
-      if total_roll == round
-        scores[player.name] = scores[player.name] + 1
-        print ' *'
-      end
-      print "\n"
-    end
-  end
-
+  # The play method runs through 11 rounds and has each player roll the dice.
   def play
     (2..12).each do |round|
-      play_round(round)
+      log "round: #{round}"
+      players.each do |player|
+        player.play(round)
+        log "#{player.name} has score #{player.score}"
+      end
     end
   end
 
+  # The show_results method displays the scores of each player and the winners.
   def show_results
     players.each do |player|
-      puts "| #{player.name} has #{scores[player.name]} points"
+      puts "#{player.name} has score #{player.score}"
     end
-    winners, high_score = find_winners
-    verb = winners.size > 1 ? 'tie' : 'wins'
-    puts "> #{winners.join(' and ')} #{verb} with a score of #{high_score}"
+
+    puts "Winners: #{winners.map(&:name).join(', ')}"
+  end
+
+  # The winners method returns an array of the players with the highest score.
+  # Exposed primarily for testing.
+  def winners
+    return @winners if defined? @winners
+
+    max_score = players.max_by(&:score).score
+    @winners = players.find_all { |player| player.score == max_score }
+  end
+
+  # The reset method resets the scores of all players and removes the winners.
+  def reset
+    players.each(&:reset)
+    remove_instance_variable(:@winners) if defined? @winners
   end
 
   private
 
-  def find_winners
-    high_score = scores.values.max
-    winners = []
-    players.each do |player|
-      winners << player.name if scores[player.name] == high_score
-    end
-    [winners, high_score]
+  # The log method is used for debugging purposes.
+  def log(message)
+    debug = false
+    puts message if debug
   end
 end
 
-if $PROGRAM_NAME == __FILE__
-  game = Chicago.new('Alice', 'Bob', 'Charlie')
-  2.times do
-    game.play
-    game.show_results
+# if $PROGRAM_NAME == __FILE__
+#   game = Chicago.new('Alice', 'Bob', 'Charlie')
+#   2.times do
+#     game.play
+#     game.show_results
+#     game.reset
+#   end
+# end
+
+RSpec.describe 'Chicago' do
+  let(:game) { Chicago.new('Alice', 'Bob', 'Charlie') }
+
+  before(:each) do
     game.reset
+  end
+
+  context 'creating' do
+    it 'creates a game with players' do
+      expect(game.players.size).to eq(3)
+    end
+  end
+
+  context '#play' do
+    it 'populates winners' do
+      srand(42)
+      game.play
+      expect(game.winners.size).to eq(1)
+      expect(game.winners.first.score).to eq(1)
+      expect(game.winners.first.name).to eq('Bob')
+      expect(game.players.max_by(&:score).score).to eq(1)
+    end
   end
 end
