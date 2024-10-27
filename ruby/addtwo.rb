@@ -4,9 +4,10 @@ require 'rspec/autorun'
 # Definition for singly-linked list.
 class ListNode
   attr_accessor :val, :next
-  def initialize(val = 0, _next = nil)
+
+  def initialize(val = 0, next_node = nil)
     @val = val
-    @next = _next
+    @next = next_node
   end
 
   def self.make(val)
@@ -49,8 +50,8 @@ end
 # @param {ListNode} l1
 # @param {ListNode} l2
 # @return {ListNode}
-def add_two_numbers(l1, l2)
-  ListNode.make(l1.to_rint + l2.to_rint)
+def add_two_numbers(first, second)
+  ListNode.make(first.to_rint + second.to_rint)
 end
 
 def two_sum(nums, target)
@@ -62,14 +63,13 @@ def two_sum(nums, target)
   [0, 0]
 end
 
-
 RSpec.describe '#two_sum' do
   describe '#two_sum' do
     it 'works' do
       expect(two_sum([2, 7, 15, 11], 17)).to eq([0, 2])
       expect(two_sum([3, 3], 6)).to eq([0, 1])
-      expect(two_sum([-1,-2,-3,-4,-5], -8)).to eq([2, 4])
-      expect(two_sum([3,2,4], 6)).to eq([1,2])
+      expect(two_sum([-1, -2, -3, -4, -5], -8)).to eq([2, 4])
+      expect(two_sum([3, 2, 4], 6)).to eq([1, 2])
     end
   end
 
@@ -84,4 +84,3 @@ RSpec.describe '#two_sum' do
     end
   end
 end
-

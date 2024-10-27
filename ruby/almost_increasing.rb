@@ -18,11 +18,11 @@ class AlmostIncreasing
       seq.delete_at i
       return true if non_increasing_indices(seq).empty?
 
-      if i < sequence.size - 1
-        seq = sequence.clone
-        seq.delete_at i + 1
-        return true if non_increasing_indices(seq).empty?
-      end
+      next if i >= sequence.size - 1
+
+      seq = sequence.clone
+      seq.delete_at i + 1
+      return true if non_increasing_indices(seq).empty?
     end
     false
   end
