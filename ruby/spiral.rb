@@ -22,8 +22,8 @@ input = 4
 10 09 08 07
 
 input = 8
-1 2 3 4 5 6 7 8
-28 29 30 31 32 33 34 9
+ 1  2  3  4  5  6  7  8
+28 29 30 31 32 33 34  9
 27 48 49 50 51 52 35 10
 26 47 60 61 62 53 36 11
 25 46 59 64 63 54 37 12
@@ -34,6 +34,13 @@ input = 8
 =end
 
 require 'rspec/autorun'
+
+def spiral_golf(n)
+  r = []
+  n = n * n + 1
+  r = [r.map { n -= 1 }] + r.transpose.reverse while n > 1
+  r.map!(&:reverse)
+end
 
 # @param {Integer} n
 # @return Integer[][]
@@ -48,22 +55,20 @@ def spiral(n)
   (1..n*n).each do |val|
     matrix[r][c] = val
 
-    unless valid?(matrix, r + dir_row[dir], c + dir_col[dir])
-      dir = (dir + 1) % 4
-    end
+    # unless valid?(matrix, r + dir_row[dir], c + dir_col[dir])
+    next_r = r + dir_row[dir]
+    next_c = c + dir_col[dir]
+    valid_next = (0..matrix.size - 1).cover?(next_r) &&
+                 (0..matrix.size - 1).cover?(next_c) &&
+                 matrix[next_r][next_c].zero?
+
+    dir = (dir + 1) % 4 unless valid_next
 
     r += dir_row[dir]
     c += dir_col[dir]
   end
 
   matrix
-end
-
-def valid?(matrix, r, c)
-  in_range = r.between?(0, matrix.size - 1) && c.between?(0, matrix.size - 1)
-  return false unless in_range
-  return false unless matrix[r][c].zero?
-  true
 end
 
 RSpec.describe '#spiral' do

@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-=begin
 # Min heap
-
-## Description
-
-=end
+#
+# Description
+#
 
 require 'rspec/autorun'
 
@@ -16,46 +14,32 @@ class Heap
     @heap = []
   end
 
-  def size
-    @heap.size
-  end
+  def size = heap.size
 
   def add(value)
     # toss it on the bottom of the heap and bubble it up
-    @heap << value
+    heap << value
     index = size - 1
 
     while value_at(index) < value_at(parent_index(index))
-      @heap[index], @heap[parent_index(index)] = @heap[parent_index(index)], @heap[index]
+      heap[index], heap[parent_index(index)] = heap[parent_index(index)], heap[index]
       index = parent_index(index)
     end
 
     # puts "add #{value}, #{@heap}"
   end
 
-  def right_index(index)
-    2 * index + 2
-  end
+  def right_index(index) = 2 * index + 2
 
-  def left_index(index)
-    2 * index + 1
-  end
+  def left_index(index)  = 2 * index + 1
 
-  def parent_index(index)
-    [(index - 1) / 2, 0].max
-  end
+  def parent_index(index) = [(index - 1) / 2, 0].max
 
-  def value_at(index)
-    @heap[index]
-  end
+  def value_at(index) = heap[index]
 
-  def leaf?(index)
-    index >= size / 2
-  end
+  def leaf?(index) = index >= size / 2
 
-  def min
-    @heap[0]
-  end
+  def min = heap[0]
 end
 
 RSpec.describe 'Heap' do

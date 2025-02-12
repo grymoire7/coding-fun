@@ -32,13 +32,17 @@ require 'rspec/autorun'
 
 def colorful?(number)
   pset = powerset(number.digits)
-  pset.shift # drop []
   mset = pset.map { |arr| arr.inject(:*) }
 
   mset.size == mset.sort.uniq.size
 end
 
 def powerset(arr)
+  # get all combinations of all lengths
+  (1..arr.length).flat_map { |n| arr.combination(n).to_a }
+end
+
+def xpowerset(arr)
   pset = [[]]
   arr.each do |arr_elem|
     len = pset.size
@@ -46,6 +50,7 @@ def powerset(arr)
       pset << (pset[j] + [arr_elem])
     end
   end
+  pset.shift # drop []
   pset
 end
 

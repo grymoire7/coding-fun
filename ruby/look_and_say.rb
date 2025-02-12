@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
-=begin
 # Look-and-say sequence
-Source: https://en.wikipedia.org/wiki/Look-and-say_sequence
+# Source: https://en.wikipedia.org/wiki/Look-and-say_sequence
 
 ## Description
-
-=end
 
 require 'rspec/autorun'
 

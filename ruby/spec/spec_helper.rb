@@ -10,7 +10,7 @@ require_relative '../almost_increasing'
 require_relative '../matrix_element_sum'
 require_relative '../reverse_parens'
 require_relative '../twelve_days'
-require_relative '../chicago'
+# require_relative '../chicago'
 require_relative '../left_center_right'
 
 # suppress writing to console

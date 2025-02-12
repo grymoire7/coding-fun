@@ -1,7 +1,6 @@
 # Compnay interview question. Given a Sudoku board 2D array of Integer,
 # determine if the board is valid.
 require 'rspec/autorun'
-require 'set'
 
 # @param {Integer[][]} board
 # @return {Boolean}
@@ -32,7 +31,7 @@ end
 def valid_sets?(sets, dim)
   # The following line works but would not return early.
   # sets.values.map { |s| s.size == dim }.reduce(true) { |ans, elm| ans && elm }
-  sets.values.each do |set|
+  sets.each_value do |set|
     return false unless set.size == dim
   end
   true
